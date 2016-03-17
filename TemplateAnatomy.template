@@ -1,0 +1,47 @@
+{
+  "AWSTemplateFormatVersion" : "2010-09-09",
+
+  "Description" : "A JSON String to provide information about the template itself.",
+
+  "Metadata" : {
+    "ProvideInformation" : { "Description" : "Allows for providing descriptions, additional information, and anything else that might want to be included in a more general way in the template."},
+    "Comments" : { "Description" : "Some users find the Metadata section a good way to provide comments/versioning information in the template itself."}
+  },
+
+  "Parameters" : {
+  	"AParameter" : {
+  		"Type" : "String",
+  		"Default" : "ParametersAreGreat"
+  	}
+  },
+
+  "Mappings" : {
+    "RegionMap" : {
+	  "us-east-1"      : { "32" : "ami-XXXXXXXX", "64" : "ami-XXXXXXXX" },
+	  "us-west-1"      : { "32" : "ami-XXXXXXXX", "64" : "ami-XXXXXXXX" },
+	  "eu-west-1"      : { "32" : "ami-XXXXXXXX", "64" : "ami-XXXXXXXX" },
+	  "ap-southeast-1" : { "32" : "ami-XXXXXXXX", "64" : "ami-XXXXXXXX" },
+	  "ap-northeast-1" : { "32" : "ami-XXXXXXXX", "64" : "ami-XXXXXXXX" }
+	}
+  },
+
+  "Conditions" : {
+  	"MyFirstCondition" : {"Fn::Equals" : [{ "Ref" : "AParameter" }, "ParametersAreGreat" ]}
+  }, 
+
+  "Resources" : {
+    "MyFirstResource" : {
+    	"Metadata" : {
+    		"Comment" : { "Description" : "The WaitConditionHandle resource type only generates an S3 URL so is a good resource type for testing or any use case where you don't actually want to create a resource or minimize costs when testing other template sections"}
+    	},
+    	"Type" : "AWS::CloudFormation::WaitConditionHandle"
+    }
+  },
+
+  "Outputs" : {
+  	"MyFirstOutput" : {
+  		"Description" : "This is your first example output",
+  		"Value" : { "Ref" : "MyFirstResource"}
+  	}
+  }
+}
